@@ -28,5 +28,22 @@ class WUndergroundManager {
         }
     }
     
+    static func getThreeDayWeatherFromAPI(url: URL, completion: @escaping ([WeatherForecast]?) -> Void) {
+        Alamofire.request(url, method: .get)
+        .validate().responseJSON { response in
+            switch response.result {
+            case let .success(data):
+                let simpleForecastJSONArray = JSON(data)["forecast"]["simpleforecast"]["forecastday"].arrayValue
+                var threeDayWeatherArray = [WeatherForecast]()
+                for periodJSON in simpleForecastJSONArray {
+                    threeDayWeatherArray.append(WeatherForecast(json: periodJSON))
+                }
+                completion(threeDayWeatherArray)
+                
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
     
 }
