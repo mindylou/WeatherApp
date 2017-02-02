@@ -45,7 +45,7 @@ class WeatherForecast {
         self.highTemp = json["high"]["fahrenheit"].stringValue + "\u{00B0}F"
         self.lowTemp = json["low"]["fahrenheit"].stringValue + "\u{00B0}F"
         self.imageURL = json["icon_url"].stringValue
-        self.date = "\(json["date"]["month"].intValue)/\(json["date"]["day"].intValue) \(json["date"]["ampm"].stringValue)" //format is m/dd AM/PM
+        self.date = "\(json["date"]["month"].intValue)/\(json["date"]["day"].intValue)"
         if let imageFromURL = UIImage.getImageFromURLString(urlString: imageURL) {
             self.image = imageFromURL
         } else {
